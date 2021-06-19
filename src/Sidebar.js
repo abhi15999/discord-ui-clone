@@ -79,7 +79,7 @@ function Sidebar() {
 
             <div className="sidebar__profile">
                 
-                <Avatar onClick={()=>{
+                <Avatar style={{cursor:'pointer'}} onClick={()=>{
                     auth.signOut()
                 }} src={user.photo} />
 
