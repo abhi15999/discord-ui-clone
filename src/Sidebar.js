@@ -39,7 +39,7 @@ function Sidebar() {
         <div className = "sidebar">
 
             <div className="sidebar__top">
-                <h3>Hello Sans!</h3>
+                <h3>Howdy! {user.displayName}</h3>
                 <ExpandMoreIcon/>
             </div>
 
