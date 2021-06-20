@@ -10,11 +10,9 @@ import { Avatar } from '@material-ui/core'
 import MicIcon from '@material-ui/icons/Mic';
 import HeadsetIcon from '@material-ui/icons/Headset';
 import SettingsIcon from '@material-ui/icons/Settings';
-import profilePic from './assets/profilePic.jpeg'
 import {selectUser} from './features/userSlice'
 import {useSelector} from 'react-redux'
 import db, { auth } from './firebase'
-// import {useEffect} from 'react'
 function Sidebar() {
 
     const user = useSelector(selectUser);
@@ -30,6 +28,13 @@ function Sidebar() {
         })
     }, [])
 
+    const addChannelhandler = () => {
+        const channelName = prompt("Name of the channel?");
+        if(channelName){
+            db.collection('channels').add({channelName:channelName});
+        }
+    }
+
     return (
         <div className = "sidebar">
 
@@ -44,14 +49,20 @@ function Sidebar() {
                         <ExpandMoreIcon/>
                         <h4>Text Channels</h4>
                     </div>
-                    <AddIcon className="sidebar__addChannel"/>
+                    <AddIcon className="sidebar__addChannel" onClick={addChannelhandler}/>
                 </div>
 
                 <div className="sidebar__channelsList">
-                    <SidebarChannel/>
-                    <SidebarChannel/>
-                    <SidebarChannel/>
-                    <SidebarChannel/>
+                 {channels.map(({id,channel})=>{
+                     return(
+
+                         <SidebarChannel
+                         key={id}
+                         id={id}
+                         channelName = {channel.channelName}
+                         />
+                     )
+                 })}
                 </div>
             </div>
 
